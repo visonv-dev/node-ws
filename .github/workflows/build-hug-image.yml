@@ -2,14 +2,14 @@ name: Build huggingface Image
 
 on:
   push:
-    branches: [ hug ]
+    branches: [ index ]
     paths:
       - 'Dockerfile'
       - 'index.js'
       - 'package.json'
       - 'index.html'
   pull_request:
-    branches: [ hug ]
+    branches: [ index ]
   workflow_dispatch:
 
 jobs:
@@ -23,7 +23,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          ref: hug 
+          ref: index 
 
       - name: Convert to lowercase
         id: vars
@@ -47,7 +47,7 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/${{ steps.vars.outputs.owner_lower }}/huargo:latest
+            ghcr.io/${{ steps.vars.outputs.owner_lower }}/hugg:latest
           labels: |
             org.opencontainers.image.source=https://github.com/${{ steps.vars.outputs.repo_lower }}
             org.opencontainers.image.description=http server
